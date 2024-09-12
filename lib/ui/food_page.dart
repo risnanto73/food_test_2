@@ -88,11 +88,28 @@ class _FoodPageState extends State<FoodPage> {
                     'Popular',
                     'Recommended',
                   ],
-                  onTap: (index) {}),
-              SizedBox(height: 20),
+                  onTap: (index) {
+                    setState(() {
+                      selectedIndex = index;
+                    });
+                  }),
+              SizedBox(height: 80),
+              Builder(builder: (_) {
+                String body = (selectedIndex == 0)
+                    ? 'New Taste Body'
+                    : (selectedIndex == 1)
+                        ? 'Popular Body'
+                        : 'Recommended Body';
+                return Center(
+                  child: Text(
+                    body,
+                    style: blackFontStyle1,
+                  ),
+                );
+              }),
             ],
           ),
-        )
+        ),
       ],
     );
   }
