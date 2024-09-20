@@ -57,7 +57,7 @@ class _FoodPageState extends State<FoodPage> {
         ),
         //Card Food
         Container(
-          height: 220,
+          height: 235,
           width: double.infinity,
           margin: EdgeInsets.symmetric(
             vertical: defaultMargin,
