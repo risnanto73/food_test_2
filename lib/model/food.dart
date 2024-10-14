@@ -1,5 +1,7 @@
 part of 'models.dart';
 
+enum FoodType { new_food, popular, recommended }
+
 class Food extends Equatable {
   final int? id;
   final String? name;
@@ -8,6 +10,7 @@ class Food extends Equatable {
   final String? ingredients;
   final double? price;
   final double? rate;
+  final List<FoodType>? types;
 
   Food({
     this.id,
@@ -17,19 +20,35 @@ class Food extends Equatable {
     this.ingredients,
     this.price,
     this.rate,
+    this.types = const [],
   });
+
+  factory Food.fromJson(Map<String, dynamic> data) => Food(
+        id: data['id'],
+        name: data['name'],
+        picturePath: data['picturePath'],
+        description: data['description'],
+        ingredients: data['ingredients'],
+        price: data['price'].toDouble(),
+        rate: data['rate'].toDouble(),
+        types: data['types'].toString().split(',').map((e) {
+          switch (e) {
+            case 'new_food':
+              return FoodType.new_food;
+            case 'popular':
+              return FoodType.popular;
+            case 'recommended':
+              return FoodType.recommended;
+            default:
+              return FoodType.new_food;
+          }
+        }).toList(),
+      );
 
   @override
   // TODO: implement props
-  List<Object?> get props => [
-    id,
-    name,
-    picturePath,
-    description,
-    ingredients,
-    price,
-    rate
-  ];
+  List<Object?> get props =>
+      [id, name, picturePath, description, ingredients, price, rate];
 }
 
 List<Food> mockFoods = [
@@ -43,6 +62,7 @@ List<Food> mockFoods = [
     ingredients: 'Bawang merah, paprika, bawang bombay, timun',
     price: 150000,
     rate: 4.2,
+    types: [FoodType.new_food, FoodType.recommended],
   ),
   Food(
     id: 2,
@@ -54,6 +74,7 @@ List<Food> mockFoods = [
     ingredients: 'Nasi, kambing, telur, bawang merah, bawang putih',
     price: 25000,
     rate: 4.5,
+    types: [FoodType.popular],
   ),
   Food(
     id: 3,
@@ -76,6 +97,7 @@ List<Food> mockFoods = [
     ingredients: 'Bakso, mie, kuah kaldu',
     price: 30000,
     rate: 4.3,
+    types: [FoodType.new_food, FoodType.recommended, FoodType.popular],
   ),
   Food(
     id: 5,
@@ -87,6 +109,7 @@ List<Food> mockFoods = [
     ingredients: 'Ayam, bumbu rempah, plecing kangkung, sambal terasi',
     price: 50000,
     rate: 4.8,
+    types: [FoodType.recommended],
   ),
   Food(
     id: 6,

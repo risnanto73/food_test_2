@@ -55,7 +55,10 @@ class OrderListItem extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Text('${transaction.dateTime}'),
+            Text(
+              convertDateTimeDisplay(transaction.dateTime!),
+              style: greyFontStyle,
+            ),
             (transaction.status == TransactionStatus.delivered)
                 ? Container(
                     decoration: BoxDecoration(
